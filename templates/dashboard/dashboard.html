@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>📊 Admin Dashboard</h2>
+
+<div style="display:flex; gap:20px; margin-bottom:20px;">
+    <div style="background:#1e1e1e; padding:20px; border-radius:10px;">
+        <h3>Total Bookings</h3>
+        <p>{{ total_bookings }}</p>
+    </div>
+
+    <div style="background:#1e1e1e; padding:20px; border-radius:10px;">
+        <h3>Total Revenue</h3>
+        <p>₹{{ total_revenue }}</p>
+    </div>
+</div>
+
+<h3>🔥 Popular Movies</h3>
+<ul>
+    {% for movie in popular_movies %}
+        <li>{{ movie.movie__title }} ({{ movie.count }} bookings)</li>
+    {% endfor %}
+</ul>
+
+<h3>🕒 Recent Bookings</h3>
+<ul>
+    {% for b in recent_bookings %}
+        <li>{{ b.user.username }} booked {{ b.movie.title }} ({{ b.seats }})</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- 🔍 FILTER BAR -->
+
+<form method="get" style="margin-bottom:20px; display:flex; gap:10px;">
+
+
+<!-- Genre Filter -->
+<select name="genre">
+    <option value="">All Genres</option>
+    {% for g in genres %}
+        <option value="{{ g }}" {% if g == selected_genre %}selected{% endif %}>
+            {{ g }}
+        </option>
+    {% endfor %}
+</select>
+
+<!-- Language Filter -->
+<select name="language">
+    <option value="">All Languages</option>
+    {% for l in languages %}
+        <option value="{{ l }}" {% if l == selected_language %}selected{% endif %}>
+            {{ l }}
+        </option>
+    {% endfor %}
+</select>
+
+<button type="submit">Filter</button>
+
+</form>
+
+<!-- 🎬 MOVIE GRID -->
+
+<div class="movie-grid">
+
+{% for movie in movies %}
+<div class="movie-card">
+
+    <!-- 🎥 Poster -->
+    {% if movie.poster %}
+        <img src="{{ movie.poster.url }}">
+    {% endif %}
+
+    <!-- 🎬 Info -->
+    <div class="movie-info">
+        <div class="movie-title">{{ movie.title }}</div>
+        <div class="movie-meta">
+            {{ movie.genre }} | {{ movie.language }}
+        </div>
+
+        <!-- 🎟️ BOOK BUTTON -->
+        <a href="/bookings/book/{{ movie.id }}/">
+            <button class="book-btn">Book Now</button>
+        </a>
+
+    </div>
+
+</div>
+{% empty %}
+    <p>No movies available</p>
+{% endfor %}
+
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div style="max-width:400px; margin:auto; background:#1e1e1e; padding:20px; border-radius:10px;">
+
+    <h2 style="text-align:center;">💳 Payment</h2>
+
+    <p><strong>Movie:</strong> {{ movie.title }}</p>
+    <p><strong>Seats:</strong> {{ seats }}</p>
+    <p><strong>Total:</strong> ₹{{ price }}</p>
+
+    <form method="post" action="/payments/process/">
+        {% csrf_token %}
+
+        <input name="card_number" placeholder="Card Number (1234)" required style="width:100%; padding:10px; margin-bottom:10px;">
+
+        <input name="name" placeholder="Card Holder Name" required style="width:100%; padding:10px; margin-bottom:10px;">
+
+        <input name="cvv" placeholder="CVV (123)" required style="width:100%; padding:10px; margin-bottom:10px;">
+
+        <button type="submit" style="width:100%; padding:10px; background:#e50914; color:white; border:none;">
+            Pay Now
+        </button>
+
+    </form>
+
+    {% if error %}
+        <p style="color:red; text-align:center;">{{ error }}</p>
+    {% endif %}
+
+</div>
+
+{% endblock %}

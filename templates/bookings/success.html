@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div style="max-width:500px; margin:auto; background:#1e1e1e; padding:20px; border-radius:10px; text-align:center;">
+
+    <h2>🎉 Booking Confirmed!</h2>
+
+    <p><strong>Movie:</strong> {{ booking.movie.title }}</p>
+    <p><strong>Seats:</strong> {{ booking.seats }}</p>
+    <p><strong>Total Price:</strong> ₹{{ booking.total_price }}</p>
+
+    <br>
+
+    <a href="/">
+        <button style="padding:10px; background:#e50914; color:white; border:none; border-radius:5px;">
+            Back to Movies
+        </button>
+    </a>
+
+</div>
+
+{% endblock %}

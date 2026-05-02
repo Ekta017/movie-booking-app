@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>🎟️ Select Seats for {{ movie.title }}</h2>
+
+<div class="screen">SCREEN</div>
+
+<div class="seats">
+    {% for row in "ABCDEF" %}
+        <div class="row">
+            {% for num in "123456789" %}
+                {% with seat=row|add:num %}
+                    <div class="seat
+                        {% if seat in booked_seats %} booked {% endif %}"
+                        onclick="selectSeat(this, '{{ seat }}')">
+                        {{ seat }}
+                    </div>
+                {% endwith %}
+            {% endfor %}
+        </div>
+    {% endfor %}
+</div>
+
+<form method="post">
+    {% csrf_token %}
+    <input type="hidden" name="seats" id="selectedSeats">
+
+    <p>Selected Seats: <span id="seatDisplay"></span></p>
+    <p>Total Price: ₹<span id="price">0</span></p>
+
+    <button type="submit">Confirm Booking</button>
+</form>
+
+<style>
+.screen {
+    text-align:center;
+    margin:20px;
+    padding:10px;
+    background:#ccc;
+}
+
+.row {
+    display:flex;
+    justify-content:center;
+    margin:5px;
+}
+
+.seat {
+    width:35px;
+    height:35px;
+    margin:5px;
+    background:green;
+    color:white;
+    text-align:center;
+    line-height:35px;
+    cursor:pointer;
+    border-radius:5px;
+}
+
+.seat.booked {
+    background:red;
+    cursor:not-allowed;
+}
+
+.seat.selected {
+    background:orange;
+}
+</style>
+
+<script>
+let selected = [];
+
+function selectSeat(el, seat) {
+    if (el.classList.contains('booked')) return;
+
+    if (selected.includes(seat)) {
+        selected = selected.filter(s => s !== seat);
+        el.classList.remove('selected');
+    } else {
+        selected.push(seat);
+        el.classList.add('selected');
+    }
+
+    document.getElementById("selectedSeats").value = selected.join(",");
+    document.getElementById("seatDisplay").innerText = selected.join(",");
+    document.getElementById("price").innerText = selected.length * 150;
+}
+</script>
+
+{% endblock %}
