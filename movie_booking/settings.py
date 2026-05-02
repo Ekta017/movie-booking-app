@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-ftc^e##g@2o=$lh#ynn3@-pi+du@w2w%5o8-$v^+!ouv#162gw
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -45,6 +45,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -129,3 +131,6 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'ektapardeshi8@gmail.com'
 EMAIL_HOST_PASSWORD = 'htsz qged lean sgxg'
+
+import os
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
