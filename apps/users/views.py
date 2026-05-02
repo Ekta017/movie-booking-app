@@ -1,3 +1,8 @@
-from django.shortcuts import render
+from django.http import HttpResponse
+from django.contrib.auth.models import User
 
-# Create your views here.
+def create_admin(request):
+    if not User.objects.filter(username="admin").exists():
+        User.objects.create_superuser("admin", "admin@gmail.com", "admin123")
+        return HttpResponse("Admin created successfully!")
+    return HttpResponse("Admin already exists!")

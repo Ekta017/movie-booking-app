@@ -19,8 +19,11 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
+from movie_booking.apps.users.views import create_admin
+
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path('create-admin/', create_admin),
     path('', include('apps.movies.urls')),
     path('bookings/', include('apps.bookings.urls')),
     path('payments/', include('apps.payments.urls')),
